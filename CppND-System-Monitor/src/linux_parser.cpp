@@ -215,7 +215,6 @@ int LinuxParser::TotalProcesses() {
     //std::getline(fileStream, line);
     while (std::getline(fileStream, line)){
       std::istringstream inputStream(line);
-      //FEEDBACK: looping this processs
       //parse inputStream to parsedValue and totalProcesses
       while (inputStream >> parsedValue >> totalProcesses){
         //if parsedValue matches "processes" from file
@@ -244,7 +243,6 @@ int LinuxParser::RunningProcesses() {
     //std::getline(fileStream, line);
     while (std::getline(fileStream, line)){
       std::istringstream inputStream(line);
-      //FEEDBACK: looping this processs
       //parse inputStream to parsedValue and totalProcesses
       while (inputStream >> parsedValue >> runningProcesses){
         //if parsedValue matches "processes" from file
@@ -332,7 +330,7 @@ string LinuxParser::User(int pid) {
   //strings for line, parsed value
   string line, fileUid, parsedValue;
   //Create default Username case
-  string userName{"GUESTUSER"};
+  string userName{"GUEST"};
   //new input file stream to path
   std::ifstream fileStream(kPasswordPath);
   if (fileStream.is_open()){
@@ -360,8 +358,8 @@ long LinuxParser::UpTime(int pid) {
 
   //string values for line and time 
   string line, parsedTime;
-  //long to hold upTime, default as 0 to pass warning
-  long upTime = 0;
+  //long to hold upTime
+  long upTime = 0.0f;
   //new input file stream
   std::ifstream fileStream(kProcDirectory + std::to_string(pid) + kStatFilename);
   //check if stream is open
@@ -374,8 +372,12 @@ long LinuxParser::UpTime(int pid) {
      inputStream >> parsedTime; 
     }
     //FEEDBACK implementation - assign upTime to parsedPID /
-    upTime = UpTime() - stol(parsedTime) / sysconf(_SC_CLK_TCK);
-    return upTime;
+    //upTime = UpTime() - stol(parsedTime) / sysconf(_SC_CLK_TCK);
+    if (upTime <= 0.0f){
+      upTime = 0.0f;
+    } else{
+    	upTime = UpTime() - stol(parsedTime) / sysconf(_SC_CLK_TCK);
+    }
     
   }
  return upTime;
