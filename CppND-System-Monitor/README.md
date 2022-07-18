@@ -4,6 +4,10 @@ Uploaded for Troubleshooting.
 
 Current Issue:
 
-No Processes output to the console app.
+Calling Sort in system.cpp causes Floating Point Exception (core dumped) error in Monitor.
 
-![image](https://user-images.githubusercontent.com/61633067/179424587-659be69f-dc34-4f83-801c-c6dfe99329d9.png)
+<img width="814" alt="Screen Shot 2022-07-17 at 7 06 37 PM" src="https://user-images.githubusercontent.com/61633067/179430439-5db280a4-f40b-45d1-a52e-99c728538a8f.png">
+
+
+Attempt to fix by implementing 0.0f hardcode at LinuxParser::UpTime, but no change in result:
+<img width="590" alt="Screen Shot 2022-07-17 at 7 08 24 PM" src="https://user-images.githubusercontent.com/61633067/179430442-0943f739-cc69-4488-b111-acbf12aa903f.png">
