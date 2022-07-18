@@ -32,6 +32,11 @@ vector<Process>& System::Processes() {
     //push process to processes
    processes_.push_back(currentProcess);
   }
+  
+  //FEEDBACK - processes display to console, now need to display by greatest CPU usage
+  //Overloads operator< defined in process.cpp to compare CPUutilization
+  std::sort(processes_.begin(), processes_.end(), std::less<Process>());
+  
   return processes_; 
 
 }
