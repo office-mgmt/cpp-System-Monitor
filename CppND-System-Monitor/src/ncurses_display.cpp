@@ -71,8 +71,8 @@ void NCursesDisplay::DisplayProcesses(std::vector<Process>& processes,
   wattroff(window, COLOR_PAIR(2));
   for (int i = 0; i < n; ++i) {
     //You need to take care of the fact that the cpu utilization has already been multiplied by 100.
-    // Clear the line
-    //mvwprintw(window, ++row, pid_column, (string(window->_maxx-2, ' ').c_str()));
+    // FEEDBACK - Restore the below line
+    mvwprintw(window, ++row, pid_column, (string(window->_maxx-2, ' ').c_str()));
     
     mvwprintw(window, row, pid_column, to_string(processes[i].Pid()).c_str());
     mvwprintw(window, row, user_column, processes[i].User().c_str());
@@ -107,7 +107,8 @@ void NCursesDisplay::Display(System& system, int n) {
     wrefresh(system_window);
     wrefresh(process_window);
     refresh();
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    //FEEDBACK: Change sleep from 3 to 1 second
+    std::this_thread::sleep_for(std::chrono::seconds(1));
   }
   endwin();
 }
